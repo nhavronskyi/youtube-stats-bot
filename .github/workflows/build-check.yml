@@ -1,0 +1,17 @@
+name: Build Check for Spring Boot Projects
+
+on: [ pull_request ]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 23
+      - name: Gradle Build
+        run: ./gradlew build
