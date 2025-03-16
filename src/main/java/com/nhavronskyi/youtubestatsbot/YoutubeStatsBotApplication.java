@@ -16,11 +16,9 @@ public class YoutubeStatsBotApplication {
     private final BotService botService;
 
     @Bean
-    public Supplier<Object> sendMessageToUsers() {
-        return () -> {
-            botService.sendMsgToAllUsers("Hello World!");
-            return null;
-        };
+    public Supplier<String> sendMessageToUsers() {
+        botService.sendMsgToAllUsers("Hello World!");
+        return () -> "Message sent to all users";
     }
 
     public static void main(String[] args) {

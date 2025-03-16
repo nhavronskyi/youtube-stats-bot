@@ -10,11 +10,11 @@ ext {
 }
 
 group = 'com.nhavronskyi'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(23)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
@@ -38,4 +38,16 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+tasks.register('buildZip', Zip) {
+    from compileJava
+    from processResources
+    into('lib') {
+        from configurations.runtimeClasspath
+    }
+}
+
+build {
+    finalizedBy tasks.buildZip
 }
