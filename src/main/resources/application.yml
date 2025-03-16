@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: youtube-stats-bot
+
+telegram:
+  bot:
+    token: ${secrets.TELEGRAM_BOT_TOKEN}
+  users:
+    chatIds: ${vars.TELEGRAM_BOT_CHAT_IDS}
