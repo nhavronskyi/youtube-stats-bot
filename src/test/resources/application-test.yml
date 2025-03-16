@@ -1,0 +1,5 @@
+telegram:
+  bot:
+    token: "test-token"
+  users:
+    chatIds: [ 123456789, 987654321 ]

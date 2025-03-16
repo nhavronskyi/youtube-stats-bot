@@ -4,6 +4,6 @@ spring:
 
 telegram:
   bot:
-    token: ${TELEGRAM_BOT_TOKEN}
+    token: ${secrets.TELEGRAM_BOT_TOKEN}
   users:
-    chatIds: ${TELEGRAM_BOT_CHAT_IDS}
+    chatIds: ${vars.TELEGRAM_BOT_CHAT_IDS}
