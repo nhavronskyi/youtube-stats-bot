@@ -4,6 +4,9 @@ on: [ pull_request ]
 
 jobs:
   build:
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_BOT_CHAT_IDS: ${{ secrets.TELEGRAM_BOT_CHAT_IDS }}
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout code
