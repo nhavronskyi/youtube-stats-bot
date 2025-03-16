@@ -5,15 +5,16 @@ plugins {
 }
 
 ext {
+    springCloudAwsFunctionVersion = '4.2.0'
     telegramBotVersion = '8.3.0'
 }
 
 group = 'com.nhavronskyi'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(23)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
@@ -22,9 +23,11 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation "org.springframework.cloud:spring-cloud-function-adapter-aws:$springCloudAwsFunctionVersion"
+
     implementation "com.github.pengrad:java-telegram-bot-api:$telegramBotVersion"
-    implementation 'org.projectlombok:lombok'
+    implementation "org.projectlombok:lombok"
 
     annotationProcessor "org.projectlombok:lombok"
     compileOnly "org.projectlombok:lombok"
@@ -35,4 +38,16 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+tasks.register('buildZip', Zip) {
+    from compileJava
+    from processResources
+    into('lib') {
+        from configurations.runtimeClasspath
+    }
+}
+
+build {
+    finalizedBy tasks.buildZip
 }

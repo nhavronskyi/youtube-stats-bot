@@ -1,12 +1,13 @@
 package com.nhavronskyi.youtubestatsbot;
 
 import com.nhavronskyi.youtubestatsbot.service.BotService;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+import org.springframework.context.annotation.Bean;
+
+import java.util.function.Supplier;
 
 @SpringBootApplication
 @ConfigurationPropertiesScan
@@ -14,15 +15,13 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 public class YoutubeStatsBotApplication {
     private final BotService botService;
 
-    @PostConstruct
-    public void init() {
+    @Bean
+    public Supplier<String> sendMessageToUsers() {
         botService.sendMsgToAllUsers("Hello World!");
+        return () -> "Message sent to all users";
     }
 
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(YoutubeStatsBotApplication.class);
-        app.setWebApplicationType(WebApplicationType.NONE);
-        app.run(args);
+        SpringApplication.run(YoutubeStatsBotApplication.class, args);
     }
-
 }
