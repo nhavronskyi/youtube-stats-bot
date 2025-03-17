@@ -5,7 +5,7 @@ plugins {
 }
 
 ext {
-    springCloudAwsFunctionVersion = '4.2.0'
+    springCloudAwsFunctionVersion = '4.2.1'
     telegramBotVersion = '8.3.0'
 }
 
