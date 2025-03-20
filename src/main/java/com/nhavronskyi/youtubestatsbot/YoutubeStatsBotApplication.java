@@ -17,7 +17,7 @@ public class YoutubeStatsBotApplication {
 
     @Bean
     public Supplier<String> sendMessageToUsers() {
-        botService.sendMsgToAllUsers("Hello World!");
+        botService.sendMsgToAllUsers();
         return () -> "Message sent to all users";
     }
 

@@ -7,3 +7,6 @@ telegram:
     token: ${TELEGRAM_BOT_TOKEN:${secrets.TELEGRAM_BOT_TOKEN}}
   users:
     chatIds: ${TELEGRAM_BOT_CHAT_IDS:${vars.TELEGRAM_BOT_CHAT_IDS}}
+google:
+  youtube:
+    api-key: ${GOOGLE_YOUTUBE_API_KEY:${secrets.GOOGLE_YOUTUBE_API_KEY}}
