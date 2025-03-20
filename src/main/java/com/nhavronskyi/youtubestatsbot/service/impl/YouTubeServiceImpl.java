@@ -1,5 +1,6 @@
 package com.nhavronskyi.youtubestatsbot.service.impl;
 
+import com.google.api.client.util.DateTime;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchResult;
 import com.nhavronskyi.youtubestatsbot.props.YoutubeProps;
@@ -21,9 +22,12 @@ public class YouTubeServiceImpl implements YouTubeService {
         var searchRequest = youTube.search().list("snippet");
         searchRequest.setKey(props.apiKey());
         searchRequest.setQ(query);
-        searchRequest.setMaxResults(5L);
+        searchRequest.setType("video");
+        searchRequest.setPublishedAfter(new DateTime(System.currentTimeMillis() - 16 * 60 * 60 * 1000)); // 24 hours - 8 hours
+        searchRequest.setMaxResults(3L);
 
         return searchRequest.execute()
-                .getItems();
+                .getItems()
+                .reversed();
     }
 }

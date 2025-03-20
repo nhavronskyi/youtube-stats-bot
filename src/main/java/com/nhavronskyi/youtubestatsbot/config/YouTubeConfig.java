@@ -9,13 +9,18 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class YouTubeConfig {
     @Bean
-    YouTube youTube() {
+    YouTube youTube(GsonFactory gsonFactory) {
         return new YouTube.Builder(
                 new NetHttpTransport(),
-                GsonFactory.getDefaultInstance(),
+                gsonFactory,
                 httpRequest -> {
                 })
                 .setApplicationName("youtube-stats-bot")
                 .build();
+    }
+
+    @Bean
+    GsonFactory jsonFactory() {
+        return GsonFactory.getDefaultInstance();
     }
 }

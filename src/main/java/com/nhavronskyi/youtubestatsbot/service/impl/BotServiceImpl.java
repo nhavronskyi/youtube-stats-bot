@@ -25,7 +25,7 @@ public class BotServiceImpl implements BotService {
     }
 
     private String getMsg() {
-        return youTubeService.searchLinks("java").stream()
+        return youTubeService.searchLinks("ign").stream()
                 .map(x -> x + " \n")
                 .collect(Collectors.joining())
                 .trim();
