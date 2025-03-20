@@ -7,6 +7,10 @@ plugins {
 ext {
     springCloudAwsFunctionVersion = '4.2.1'
     telegramBotVersion = '8.3.0'
+    googleApiClientVersion = '2.7.2'
+    googleApiServicesYoutubeVersion = 'v3-rev222-1.25.0'
+    oauthClientJettyVersion = '1.39.0'
+    googleHttpClientJackson2Version = "1.39.2"
 }
 
 group = 'com.nhavronskyi'
@@ -25,6 +29,11 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation "org.springframework.cloud:spring-cloud-function-adapter-aws:$springCloudAwsFunctionVersion"
+
+    implementation "com.google.api-client:google-api-client:$googleApiClientVersion"
+    implementation "com.google.apis:google-api-services-youtube:$googleApiServicesYoutubeVersion"
+    implementation "com.google.oauth-client:google-oauth-client-jetty:$oauthClientJettyVersion"
+    implementation "com.google.http-client:google-http-client-jackson2:$googleHttpClientJackson2Version"
 
     implementation "com.github.pengrad:java-telegram-bot-api:$telegramBotVersion"
     implementation "org.projectlombok:lombok"
