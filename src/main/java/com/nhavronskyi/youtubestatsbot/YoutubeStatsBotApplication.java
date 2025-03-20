@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.Bean;
 
+import java.util.Date;
 import java.util.function.Supplier;
 
 @SpringBootApplication
@@ -17,7 +18,7 @@ public class YoutubeStatsBotApplication {
 
     @Bean
     public Supplier<String> sendMessageToUsers() {
-        botService.sendMsgToAllUsers("Hello World!");
+        botService.sendMsgToAllUsers("Good Morning! " + new Date());
         return () -> "Message sent to all users";
     }
 
