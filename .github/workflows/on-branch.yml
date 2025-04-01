@@ -14,7 +14,7 @@ jobs:
           distribution: 'temurin'
           java-version: 21
       - name: Gradle Build
-        run: ./gradlew build
+        run: ./gradlew build --full-stacktrace
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -38,4 +38,4 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-north-1
       - name: Upload Lambda
-        run: aws lambda update-function-code --function-name youtube-stats-bot --zip-file fileb://build/distributions/youtube-stats-bot-0.0.1.zip
+        run: aws lambda update-function-code --function-name youtube-stats-bot --zip-file fileb://build/distributions/youtube-stats-bot-0.0.1.zip | jq 'del(.Environment)'
