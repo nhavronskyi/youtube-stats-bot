@@ -19,11 +19,11 @@ public class YouTubeServiceImpl implements YouTubeService {
 
     @SneakyThrows
     public List<SearchResult> search(String query) {
-        var searchRequest = youTube.search().list("snippet");
+        var searchRequest = youTube.search().list(List.of("snippet"));
         searchRequest.setKey(props.apiKey());
         searchRequest.setQ(query);
-        searchRequest.setType("video");
-        searchRequest.setPublishedAfter(new DateTime(System.currentTimeMillis() - 16 * 60 * 60 * 1000)); // 24 hours - 8 hours
+        searchRequest.setType(List.of("video"));
+        searchRequest.setPublishedAfter(new DateTime(System.currentTimeMillis() - 16 * 60 * 60 * 1000).toString()); // 24 hours - 8 hours
         searchRequest.setMaxResults(3L);
 
         return searchRequest.execute()
