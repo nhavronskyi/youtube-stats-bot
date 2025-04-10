@@ -24,8 +24,7 @@ public class BotServiceImpl implements BotService {
     }
 
     private String getMsg() {
-        return geminiService.getSummaryAboutSubscribers(youTubeService.getSubscriptions())
-
+        return geminiService.getSummaryAboutSubscribers(youTubeService.getSubscriptions());
     }
 
     private void sendMsg(String chatId, String msg) {
