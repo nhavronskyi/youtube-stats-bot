@@ -6,7 +6,7 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.youtube.YouTube;
-import com.nhavronskyi.youtubestatsbot.props.YoutubeProps;
+import com.nhavronskyi.youtubestatsbot.props.GoogleProps;
 import com.nhavronskyi.youtubestatsbot.service.impl.YouTubeAuthService;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class YouTubeConfig {
     @Bean
-    GoogleCredential googleCredential(GsonFactory gsonFactory, YoutubeProps props, HttpTransport transport) {
+    GoogleCredential googleCredential(GsonFactory gsonFactory, GoogleProps props, HttpTransport transport) {
         return new GoogleCredential().toBuilder()
                 .setTransport(transport)
                 .setJsonFactory(gsonFactory)

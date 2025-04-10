@@ -3,7 +3,7 @@ package com.nhavronskyi.youtubestatsbot.service.impl;
 import com.google.api.client.util.DateTime;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchResult;
-import com.nhavronskyi.youtubestatsbot.props.YoutubeProps;
+import com.nhavronskyi.youtubestatsbot.props.GoogleProps;
 import com.nhavronskyi.youtubestatsbot.service.YouTubeService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class YouTubeServiceImpl implements YouTubeService {
     private final YouTube youTube;
-    private final YoutubeProps props;
+    private final GoogleProps props;
 
     @SneakyThrows
     public List<SearchResult> search(String query) {
