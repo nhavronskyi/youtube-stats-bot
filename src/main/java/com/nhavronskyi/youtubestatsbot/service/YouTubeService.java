@@ -8,6 +8,8 @@ import java.util.List;
 public interface YouTubeService {
     List<SearchResult> search(String query);
 
+    List<String> getSubscriptions();
+
     default List<YouTubeResult> searchLinks(String query) {
         return search(query).stream()
                 .map(YouTubeResult::convert)

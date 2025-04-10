@@ -30,4 +30,19 @@ public class YouTubeServiceImpl implements YouTubeService {
                 .getItems()
                 .reversed();
     }
+
+    @SneakyThrows
+    @Override
+    public List<String> getSubscriptions() {
+        var request = youTube.subscriptions()
+                .list(List.of("snippet"))
+                .setMine(true)
+                .setMaxResults(100L);
+
+        return request.execute()
+                .getItems()
+                .stream()
+                .map(x -> x.getSnippet().getTitle())
+                .toList();
+    }
 }

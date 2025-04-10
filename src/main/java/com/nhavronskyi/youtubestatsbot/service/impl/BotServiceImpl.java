@@ -8,14 +8,13 @@ import com.pengrad.telegrambot.request.SendMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.stream.Collectors;
-
 @Service
 @RequiredArgsConstructor
 public class BotServiceImpl implements BotService {
     private final TelegramBot telegramBot;
     private final UserProps userProps;
     private final YouTubeService youTubeService;
+    private final GeminiService geminiService;
 
     @Override
     public void sendMsgToAllUsers() {
@@ -25,10 +24,7 @@ public class BotServiceImpl implements BotService {
     }
 
     private String getMsg() {
-        return youTubeService.searchLinks("ign").stream()
-                .map(x -> x + " \n")
-                .collect(Collectors.joining())
-                .trim();
+        return geminiService.getSummaryAboutSubscribers(youTubeService.getSubscriptions())
 
     }
 
