@@ -38,4 +38,6 @@ out/
 
 *-dev.*
 
+client_secret.json
+
 .DS_Store
