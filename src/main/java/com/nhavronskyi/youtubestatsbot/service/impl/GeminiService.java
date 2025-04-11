@@ -1,6 +1,9 @@
 package com.nhavronskyi.youtubestatsbot.service.impl;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.nhavronskyi.youtubestatsbot.props.GoogleProps;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -22,18 +25,17 @@ public class GeminiService {
 
     @SneakyThrows
     public String getSummaryAboutSubscribers(List<String> channelNames) {
-        String promptText = String.format("what do you think about person who watch these channels? %s", String.join(", ", channelNames));
-
-        Map<String, Object> payload = new HashMap<>();
-        Map<String, Object> part = new HashMap<>();
-        part.put("text", promptText);
-        Map<String, Object> contents = new HashMap<>();
-        contents.put("parts", List.of(part));
-        payload.put("contents", List.of(contents));
-
-        String jsonPayload = gson.toJson(payload);
-
         String endpoint = googleProps.url().geminiUrl() + googleProps.apiKey();
+        String prompt = """
+                як ти можеш охарактеризувати людину яка підписана на усі ці канали?
+                
+                ~~~
+                %s
+                ~~~
+                тобі не потрібно охарактеризовувати кожен канал, тільки загальний підсумок.
+                convert a message to markdown format.
+                """.formatted(String.join("\n", channelNames));
+        String jsonPayload = getRequestBody(prompt);
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(endpoint))
@@ -45,7 +47,29 @@ public class GeminiService {
                 .send(request, HttpResponse.BodyHandlers.ofString());
 
 
-        return response.body();
+        return getAnswerFromJson(response.body());
+    }
+
+    private String getRequestBody(String promptText) {
+        Map<String, Object> payload = new HashMap<>();
+        Map<String, Object> part = new HashMap<>();
+        part.put("text", promptText);
+        Map<String, Object> contents = new HashMap<>();
+        contents.put("parts", List.of(part));
+        payload.put("contents", List.of(contents));
+
+        return gson.toJson(payload);
+    }
+
+    private String getAnswerFromJson(String json) {
+        JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
+
+        JsonArray candidates = jsonObject.getAsJsonArray("candidates");
+        JsonObject firstCandidate = candidates.get(0).getAsJsonObject();
+        JsonObject content = firstCandidate.getAsJsonObject("content");
+        JsonArray parts = content.getAsJsonArray("parts");
+        JsonObject firstPart = parts.get(0).getAsJsonObject();
+        return firstPart.get("text").getAsString();
     }
 
 }

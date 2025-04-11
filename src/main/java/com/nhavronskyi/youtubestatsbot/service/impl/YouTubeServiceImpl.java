@@ -39,7 +39,7 @@ public class YouTubeServiceImpl implements YouTubeService {
         return request.execute()
                 .getItems()
                 .stream()
-                .map(x -> x.getSnippet().getTitle())
+                .map(x -> "Title: " + x.getSnippet().getTitle() + "Description: " + x.getSnippet().getDescription())
                 .toList();
     }
 }

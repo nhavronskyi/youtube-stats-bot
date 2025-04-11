@@ -4,6 +4,7 @@ import com.nhavronskyi.youtubestatsbot.props.UserProps;
 import com.nhavronskyi.youtubestatsbot.service.BotService;
 import com.nhavronskyi.youtubestatsbot.service.YouTubeService;
 import com.pengrad.telegrambot.TelegramBot;
+import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.request.SendMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,8 @@ public class BotServiceImpl implements BotService {
     }
 
     private void sendMsg(String chatId, String msg) {
-        telegramBot.execute(new SendMessage(chatId, msg));
+        telegramBot.execute(new SendMessage(chatId, msg)
+                .parseMode(ParseMode.Markdown)
+        );
     }
 }
