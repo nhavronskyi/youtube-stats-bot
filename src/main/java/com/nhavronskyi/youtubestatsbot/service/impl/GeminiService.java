@@ -33,7 +33,7 @@ public class GeminiService {
 
         String jsonPayload = gson.toJson(payload);
 
-        String endpoint = "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash-001:generateContent?key=" + googleProps.apiKey();
+        String endpoint = googleProps.url().geminiUrl() + googleProps.apiKey();
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(endpoint))
@@ -44,6 +44,8 @@ public class GeminiService {
         HttpResponse<String> response = HttpClient.newHttpClient()
                 .send(request, HttpResponse.BodyHandlers.ofString());
 
+
         return response.body();
     }
+
 }
