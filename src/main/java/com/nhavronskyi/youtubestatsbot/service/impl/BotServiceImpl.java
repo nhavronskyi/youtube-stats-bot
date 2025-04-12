@@ -1,5 +1,6 @@
 package com.nhavronskyi.youtubestatsbot.service.impl;
 
+import com.nhavronskyi.youtubestatsbot.model.YouTubeResult;
 import com.nhavronskyi.youtubestatsbot.props.UserProps;
 import com.nhavronskyi.youtubestatsbot.service.BotService;
 import com.nhavronskyi.youtubestatsbot.service.YouTubeService;
@@ -19,13 +20,18 @@ public class BotServiceImpl implements BotService {
 
     @Override
     public void sendMsgToAllUsers() {
+        System.out.println(getMsg());
         for (String chatId : userProps.chatIds()) {
             sendMsg(chatId, getMsg());
         }
     }
 
     private String getMsg() {
-        return geminiService.getSummaryAboutSubscribers(youTubeService.getSubscriptions());
+        var latestVideos = youTubeService.getLatestVideosFromSubscriptions()
+                .stream()
+                .map(YouTubeResult::toString)
+                .toList();
+        return geminiService.getSummaryAboutVideosFromToday(latestVideos);
     }
 
     private void sendMsg(String chatId, String msg) {

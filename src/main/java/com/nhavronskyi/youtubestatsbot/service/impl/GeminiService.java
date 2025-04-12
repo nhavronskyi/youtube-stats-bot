@@ -30,20 +30,22 @@ public class GeminiService {
     }
 
     @SneakyThrows
-    public String getSummaryAboutSubscribers(List<String> channelNames) {
+    public String getSummaryAboutVideosFromToday(List<String> videos) {
         String endpoint = googleProps.url().geminiUrl() + googleProps.apiKey();
 
         String prompt = """
-                як ти можеш охарактеризувати людину яка підписана на усі ці канали?
-                
+                please summarize the following videos(if you cannot use internet, so use description),
+                do not forget to include the title and the link to the video.
                 ~~~
                 %s
                 ~~~
-                тобі не потрібно охарактеризовувати кожен канал, тільки загальний підсумок.
+                
                 convert a message to markdown format.
-                """.formatted(String.join("\n", channelNames));
-        GoogleGeminiRequest googleGeminiRequest = new GoogleGeminiRequest(endpoint, prompt, gson);
+                """.formatted(String.join("\n", videos));
+        String googleGeminiResponseBody = new GoogleGeminiRequest(endpoint, prompt, gson)
+                .execute()
+                .body();
 
-        return getAnswerFromJson(googleGeminiRequest.execute().body());
+        return getAnswerFromJson(googleGeminiResponseBody);
     }
 }
