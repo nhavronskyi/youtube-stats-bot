@@ -8,7 +8,7 @@ import java.util.List;
 public interface YouTubeService {
     List<SearchResult> search(String query);
 
-    List<String> getSubscriptions();
+    List<YouTubeResult> getLatestVideosFromSubscriptions();
 
     default List<YouTubeResult> searchLinks(String query) {
         return search(query).stream()
