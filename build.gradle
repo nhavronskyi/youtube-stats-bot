@@ -6,7 +6,7 @@ plugins {
 
 ext {
     springCloudAwsFunctionVersion = '4.3.0'
-    telegramBotVersion = '8.3.0'
+    telegramBotVersion = '9.2.0'
     googleApiServicesYoutubeVersion = 'v3-rev20250714-2.0.0'
     oauthClientVersion = '1.39.0'
 }
